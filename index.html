@@ -26,30 +26,30 @@
             <div class="field-grid">
               <label>
                 Full Name
-                <input type="text" id="fullName" value="Aharnish Atul" />
+                <input type="text" id="fullName" placeholder="Your full name" />
               </label>
               <label>
                 Role
-                <input type="text" id="jobRole" value="Java Developer" />
+                <input type="text" id="jobRole" placeholder="Your role" />
               </label>
               <label>
                 Phone
-                <input type="text" id="phone" value="7050876113" />
+                <input type="text" id="phone" placeholder="Your phone number" />
               </label>
               <label>
                 Email
-                <input type="email" id="email" value="aharnishinfo@gmail.com" />
+                <input type="email" id="email" placeholder="yourmail@example.com" />
               </label>
               <label>
                 Location
-                <input type="text" id="location" value="Pune, India" />
+                <input type="text" id="location" placeholder="City, Country" />
               </label>
               <label>
                 LinkedIn URL
                 <input
                   type="url"
                   id="linkedin"
-                  value="https://www.linkedin.com/in/aharnishatul/"
+                  placeholder="https://www.linkedin.com/in/your-profile/"
                 />
               </label>
               <label>
@@ -57,7 +57,7 @@
                 <input
                   type="url"
                   id="github"
-                  value="https://github.com/aharnishinfo"
+                  placeholder="https://github.com/your-username"
                 />
               </label>
               <label>
@@ -65,7 +65,7 @@
                 <input
                   type="url"
                   id="hackerrank"
-                  value="https://www.hackerrank.com/profile/aharnishatul"
+                  placeholder="https://www.hackerrank.com/profile/your-username"
                 />
               </label>
             </div>
@@ -75,7 +75,7 @@
             <h2>Summary</h2>
             <label>
               Professional Summary
-              <textarea id="summary" rows="5">I completed my B.Tech in Computer Science and Engineering, and looking for professional platform with an experience and knowledge with C, Java, JavaScript Languages. My strengths are excellent communicator, strong analytical, leadership, problem-solving, multitasking.</textarea>
+              <textarea id="summary" rows="5" placeholder="Write a short professional summary."></textarea>
             </label>
           </section>
 
@@ -83,35 +83,13 @@
             <h2>Left Column</h2>
             <label>
               Education
-              <textarea id="education" rows="10">B. Tech(CSE)|Bhabha University|05/2019 - 06/2023|Bhopal, India|7.41 CGPA.
-Higher Secondary Certificate|Regional Secondary School|04/2017 - 03/2019|Madhubani, India|64 Percentage.
-Secondary School Certificate|Indian Public School|03/2016 - 03/2017|Madhubani, India|9.8 CGPA.</textarea>
+              <textarea id="education" rows="10" placeholder="Degree | School | Month/Year - Month/Year | Location | Marks"></textarea>
             </label>
             <p class="field-hint">Format: Degree | School | Month/Year - Month/Year | Location | Marks</p>
 
             <label>
               Projects
-              <textarea id="projects" rows="14">Student Marks Management System
-Designed and implemented: A dynamic student marks management system, allowing users to add, modify, delete, and display student records with efficient data handling.
-Developed a grade calculation: It based on student marks, categorizing performance into grades (A, B, C, P, F), providing instant feedback on academic progress.
-Integrated file handling functionality: It's exporting student data to a text file for seamless record storage and retrieval.
-
-Hotel management System
-Seamless Booking System: Built in Java and MySQL app for hotel reservation management.
-Database Interaction: Implemented efficient CRUD operations.
-
-Monthly Expenses
-Purpose: A web application that enables users to input daily expenses and calculates total expenditures on a monthly basis.
-Technology Stack: Developed using HTML, CSS, and JavaScript, providing a simple and responsive user interface.
-Features: Allows users to add daily expenses, view a summary of monthly expenses, and track spending patterns over time.
-
-Body Mass Index
-Purpose and Features: A web application that calculates Body Mass Index (BMI) based on user-provided height and weight, offering instant feedback on health status according to standard BMI categories.
-Technology Stack: Built using HTML, CSS, and JavaScript, ensuring a responsive and user-friendly interface for seamless interaction.
-
-Stock Trading Platform
-Stock Trading Platform: Created an interactive Java for trading, calculations, and transaction history.
-MySQL Integration: Managed trade data with seamless JDBC-based database operations.</textarea>
+              <textarea id="projects" rows="14" placeholder="Project title&#10;Project detail or achievement&#10;Project detail or achievement"></textarea>
             </label>
             <p class="field-hint">Format: project title on first line, bullet points on next lines, and one blank line before the next project.</p>
           </section>
@@ -120,28 +98,23 @@ MySQL Integration: Managed trade data with seamless JDBC-based database operatio
             <h2>Right Column</h2>
             <label>
               Experience
-              <textarea id="experience" rows="10">Java Programmer Internship|Code Alpha|07/2024 - 08/2024|Pune, India|Gained practical experience in Java Programming(Core Java) and MySQL.|Worked on 3 Projects during Internship: Student Marks Management System, Hotel Reservation System, and Stock Trading Platform|Improved leadership quality and communication skills</textarea>
+              <textarea id="experience" rows="10" placeholder="Role | Company | Month/Year - Month/Year | Location | Responsibility | Achievement"></textarea>
             </label>
 
             <label>
               Skills
-              <textarea id="skills" rows="8">C Programming,Java,Excel,CSS,HTML,Javascript,JDBC,Mysql,Communication,Leadership</textarea>
+              <textarea id="skills" rows="8" placeholder="Skill 1, Skill 2, Skill 3"></textarea>
             </label>
 
             <label>
               Certifications
-              <textarea id="certifications" rows="12">Certification of Java Developer|Itpreneur
-Certification of Java|HackerRank
-Certification of Completion(AI)|Be10x
-Certification of C Language|Sca</textarea>
+              <textarea id="certifications" rows="12" placeholder="Certification title | Issuer"></textarea>
             </label>
             <p class="field-hint">Format: Certification title | Issuer. One certificate per line. Edit, remove, or add as many as you want here.</p>
 
             <label>
               Languages
-              <textarea id="languages" rows="4">Hindi|Native
-English|Advanced
-Maithili|Native</textarea>
+              <textarea id="languages" rows="4" placeholder="Language | Level"></textarea>
             </label>
           </section>
         </form>
@@ -155,14 +128,15 @@ Maithili|Native</textarea>
 
       <main class="preview-panel">
         <div class="resume-sheet" id="resumeSheet">
+          <div class="resume-watermark" aria-hidden="true">Aharnish Atul</div>
           <header class="resume-header">
             <h1 id="previewName">YOUR NAME</h1>
             <h2 id="previewRole">Frontend Developer</h2>
             <div class="contact-row">
-              <span class="contact-item" data-icon="phone"><span id="previewPhone">+91 98765 43210</span></span>
-              <span class="contact-item" data-icon="email"><span id="previewEmail">yourmail@example.com</span></span>
+              <a class="contact-item" data-icon="phone" id="previewPhoneLink" href="tel:+919876543210"><span id="previewPhone">+91 98765 43210</span></a>
+              <a class="contact-item" data-icon="email" id="previewEmailLink" href="mailto:yourmail@example.com"><span id="previewEmail">yourmail@example.com</span></a>
               <a class="contact-item" data-icon="link" id="previewLinkedin" href="https://www.linkedin.com/in/your-profile/" target="_blank" rel="noreferrer"><span>linkedin.com/in/your-profile/</span></a>
-              <span class="contact-item" data-icon="location"><span id="previewLocation">Pune, India</span></span>
+              <span class="contact-item" data-icon="location"><span id="previewLocation">City, Country</span></span>
             </div>
           </header>
 

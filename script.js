@@ -27,7 +27,9 @@ const preview = {
   name: document.getElementById("previewName"),
   role: document.getElementById("previewRole"),
   phone: document.getElementById("previewPhone"),
+  phoneLink: document.getElementById("previewPhoneLink"),
   email: document.getElementById("previewEmail"),
+  emailLink: document.getElementById("previewEmailLink"),
   location: document.getElementById("previewLocation"),
   linkedin: document.getElementById("previewLinkedin"),
   summary: document.getElementById("previewSummary"),
@@ -50,8 +52,12 @@ function escapeHtml(value) {
 }
 
 function cleanUrl(url) {
+  const value = url.trim();
+  if (!value) return "#";
+
   try {
-    return new URL(url).href;
+    const parsed = new URL(/^https?:\/\//i.test(value) ? value : `https://${value}`);
+    return ["http:", "https:"].includes(parsed.protocol) ? parsed.href : "#";
   } catch {
     return "#";
   }
@@ -59,7 +65,7 @@ function cleanUrl(url) {
 
 function shortLink(url) {
   try {
-    return new URL(url).href.replace(/^https?:\/\//, "");
+    return cleanUrl(url).replace(/^https?:\/\//, "").replace(/\/$/, "");
   } catch {
     return url.trim();
   }
@@ -192,6 +198,10 @@ function buildLanguages(raw) {
 
 function buildOnlineLink(label, url) {
   const trimmedUrl = url.trim();
+  if (!trimmedUrl) {
+    return "";
+  }
+
   const iconKey = label.toLowerCase();
   const icons = {
     linkedin: `
@@ -250,7 +260,13 @@ function updatePreview() {
   preview.name.textContent = fields.fullName.value.trim() || "YOUR NAME";
   preview.role.textContent = fields.jobRole.value.trim() || "Your Role";
   preview.phone.textContent = fields.phone.value.trim();
+  preview.phoneLink.href = fields.phone.value.trim()
+    ? `tel:${fields.phone.value.replace(/[^+\d]/g, "")}`
+    : "#";
   preview.email.textContent = fields.email.value.trim();
+  preview.emailLink.href = fields.email.value.trim()
+    ? `mailto:${fields.email.value.trim()}`
+    : "#";
   preview.location.textContent = fields.location.value.trim();
   preview.summary.textContent = fields.summary.value.trim();
 
@@ -266,7 +282,7 @@ function updatePreview() {
     buildOnlineLink("LinkedIn", fields.linkedin.value),
     buildOnlineLink("GitHub", fields.github.value),
     buildOnlineLink("HackerRank", fields.hackerrank.value),
-  ].join("");
+  ].filter(Boolean).join("");
   preview.languages.innerHTML = buildLanguages(fields.languages.value);
   requestAnimationFrame(checkPageFit);
 }
@@ -332,6 +348,56 @@ async function downloadPDF() {
   const imageData = canvas.toDataURL("image/png");
 
   pdf.addImage(imageData, "PNG", 0, 0, pageWidth, pageHeight);
+
+  // The visual resume is rendered as an image. Add a real, invisible text layer
+  // so PDF readers and ATS parsers can select and extract the resume content.
+  const atsSections = [
+    fields.fullName.value.trim(),
+    fields.jobRole.value.trim(),
+    [fields.phone.value, fields.email.value, fields.location.value].filter(Boolean).join(" | "),
+    [fields.linkedin.value, fields.github.value, fields.hackerrank.value].filter(Boolean).join(" | "),
+    "PROFESSIONAL SUMMARY",
+    fields.summary.value.trim(),
+    "EXPERIENCE",
+    fields.experience.value.replaceAll("|", " | ").trim(),
+    "EDUCATION",
+    fields.education.value.replaceAll("|", " | ").trim(),
+    "PROJECTS",
+    fields.projects.value.trim(),
+    "SKILLS",
+    fields.skills.value.trim(),
+    "CERTIFICATIONS",
+    fields.certifications.value.replaceAll("|", " | ").trim(),
+    "LANGUAGES",
+    fields.languages.value.replaceAll("|", " | ").trim(),
+  ].filter(Boolean);
+
+  pdf.setFont("helvetica", "normal");
+  pdf.setFontSize(9);
+  pdf.text(atsSections.join("\n"), 8, 8, {
+    maxWidth: pageWidth - 16,
+    renderingMode: "invisible",
+  });
+
+  // html2canvas cannot preserve anchors, so recreate every link as a PDF
+  // annotation at the same location as its visible counterpart.
+  const sheetRect = resumeSheet.getBoundingClientRect();
+  const scaleX = pageWidth / sheetRect.width;
+  const scaleY = pageHeight / sheetRect.height;
+
+  resumeSheet.querySelectorAll("a[href]").forEach((anchor) => {
+    const url = anchor.href;
+    if (!url || url.endsWith("#")) return;
+
+    const rect = anchor.getBoundingClientRect();
+    pdf.link(
+      (rect.left - sheetRect.left) * scaleX,
+      (rect.top - sheetRect.top) * scaleY,
+      rect.width * scaleX,
+      rect.height * scaleY,
+      { url }
+    );
+  });
 
   pdf.save(`${(fields.fullName.value.trim() || "resume").replace(/\s+/g, "_")}.pdf`);
 }
