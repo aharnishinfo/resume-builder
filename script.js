@@ -3,6 +3,7 @@ const resumeSheet = document.getElementById("resumeSheet");
 const pageStatus = document.getElementById("pageStatus");
 const downloadPdfButton = document.getElementById("downloadPdf");
 const downloadPngButton = document.getElementById("downloadPng");
+const MAX_PDF_SIZE_BYTES = 2 * 1024 * 1024;
 let resumeOverflowsPage = false;
 
 const fields = {
@@ -345,9 +346,10 @@ async function downloadPDF() {
   const pdf = new jsPDF("p", "mm", "a4");
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
-  const imageData = canvas.toDataURL("image/png");
+  // JPEG keeps the PDF visually sharp while substantially reducing its size.
+  const imageData = canvas.toDataURL("image/jpeg", 0.6);
 
-  pdf.addImage(imageData, "PNG", 0, 0, pageWidth, pageHeight);
+  pdf.addImage(imageData, "JPEG", 0, 0, pageWidth, pageHeight, undefined, "FAST");
 
   // The visual resume is rendered as an image. Add a real, invisible text layer
   // so PDF readers and ATS parsers can select and extract the resume content.
@@ -398,6 +400,11 @@ async function downloadPDF() {
       { url }
     );
   });
+
+  if (pdf.output("blob").size > MAX_PDF_SIZE_BYTES) {
+    alert("The PDF is over the 2.0 MB download limit. Please reduce the resume content and try again.");
+    return;
+  }
 
   pdf.save(`${(fields.fullName.value.trim() || "resume").replace(/\s+/g, "_")}.pdf`);
 }
