@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aharnishinfo.github.io/resume-builder/sitemap.xml
