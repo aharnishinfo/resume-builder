@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rubik:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="editor-panel">
+        <div class="panel-header">
+          <h1>Resume Builder</h1>
+          <p>Fill your details and download your resume in PDF or PNG format.</p>
+        </div>
+
+        <form id="resumeForm" class="resume-form">
+          <section class="form-section">
+            <h2>Basic Info</h2>
+            <div class="field-grid">
+              <label>
+                Full Name
+                <input type="text" id="fullName" value="Aharnish Atul" />
+              </label>
+              <label>
+                Role
+                <input type="text" id="jobRole" value="Java Developer" />
+              </label>
+              <label>
+                Phone
+                <input type="text" id="phone" value="7050876113" />
+              </label>
+              <label>
+                Email
+                <input type="email" id="email" value="aharnishinfo@gmail.com" />
+              </label>
+              <label>
+                Location
+                <input type="text" id="location" value="Pune, India" />
+              </label>
+              <label>
+                LinkedIn URL
+                <input
+                  type="url"
+                  id="linkedin"
+                  value="https://www.linkedin.com/in/aharnishatul/"
+                />
+              </label>
+              <label>
+                GitHub URL
+                <input
+                  type="url"
+                  id="github"
+                  value="https://github.com/aharnishinfo"
+                />
+              </label>
+              <label>
+                HackerRank URL
+                <input
+                  type="url"
+                  id="hackerrank"
+                  value="https://www.hackerrank.com/profile/aharnishatul"
+                />
+              </label>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h2>Summary</h2>
+            <label>
+              Professional Summary
+              <textarea id="summary" rows="5">I completed my B.Tech in Computer Science and Engineering, and looking for professional platform with an experience and knowledge with C, Java, JavaScript Languages. My strengths are excellent communicator, strong analytical, leadership, problem-solving, multitasking.</textarea>
+            </label>
+          </section>
+
+          <section class="form-section">
+            <h2>Left Column</h2>
+            <label>
+              Education
+              <textarea id="education" rows="10">B. Tech(CSE)|Bhabha University|05/2019 - 06/2023|Bhopal, India|7.41 CGPA.
+Higher Secondary Certificate|Regional Secondary School|04/2017 - 03/2019|Madhubani, India|64 Percentage.
+Secondary School Certificate|Indian Public School|03/2016 - 03/2017|Madhubani, India|9.8 CGPA.</textarea>
+            </label>
+            <p class="field-hint">Format: Degree | School | Month/Year - Month/Year | Location | Marks</p>
+
+            <label>
+              Projects
+              <textarea id="projects" rows="14">Student Marks Management System
+Designed and implemented: A dynamic student marks management system, allowing users to add, modify, delete, and display student records with efficient data handling.
+Developed a grade calculation: It based on student marks, categorizing performance into grades (A, B, C, P, F), providing instant feedback on academic progress.
+Integrated file handling functionality: It's exporting student data to a text file for seamless record storage and retrieval.
+
+Hotel management System
+Seamless Booking System: Built in Java and MySQL app for hotel reservation management.
+Database Interaction: Implemented efficient CRUD operations.
+
+Monthly Expenses
+Purpose: A web application that enables users to input daily expenses and calculates total expenditures on a monthly basis.
+Technology Stack: Developed using HTML, CSS, and JavaScript, providing a simple and responsive user interface.
+Features: Allows users to add daily expenses, view a summary of monthly expenses, and track spending patterns over time.
+
+Body Mass Index
+Purpose and Features: A web application that calculates Body Mass Index (BMI) based on user-provided height and weight, offering instant feedback on health status according to standard BMI categories.
+Technology Stack: Built using HTML, CSS, and JavaScript, ensuring a responsive and user-friendly interface for seamless interaction.
+
+Stock Trading Platform
+Stock Trading Platform: Created an interactive Java for trading, calculations, and transaction history.
+MySQL Integration: Managed trade data with seamless JDBC-based database operations.</textarea>
+            </label>
+            <p class="field-hint">Format: project title on first line, bullet points on next lines, and one blank line before the next project.</p>
+          </section>
+
+          <section class="form-section">
+            <h2>Right Column</h2>
+            <label>
+              Experience
+              <textarea id="experience" rows="10">Java Programmer Internship|Code Alpha|07/2024 - 08/2024|Pune, India|Gained practical experience in Java Programming(Core Java) and MySQL.|Worked on 3 Projects during Internship: Student Marks Management System, Hotel Reservation System, and Stock Trading Platform|Improved leadership quality and communication skills</textarea>
+            </label>
+
+            <label>
+              Skills
+              <textarea id="skills" rows="8">C Programming,Java,Excel,CSS,HTML,Javascript,JDBC,Mysql,Communication,Leadership</textarea>
+            </label>
+
+            <label>
+              Certifications
+              <textarea id="certifications" rows="12">Certification of Java Developer|Itpreneur
+Certification of Java|HackerRank
+Certification of Completion(AI)|Be10x
+Certification of C Language|Sca</textarea>
+            </label>
+            <p class="field-hint">Format: Certification title | Issuer. One certificate per line. Edit, remove, or add as many as you want here.</p>
+
+            <label>
+              Languages
+              <textarea id="languages" rows="4">Hindi|Native
+English|Advanced
+Maithili|Native</textarea>
+            </label>
+          </section>
+        </form>
+
+        <div class="action-bar">
+          <button type="button" id="downloadPdf">Download PDF</button>
+          <button type="button" id="downloadPng" class="secondary">Download PNG</button>
+        </div>
+        <p class="page-status" id="pageStatus" aria-live="polite"></p>
+      </aside>
+
+      <main class="preview-panel">
+        <div class="resume-sheet" id="resumeSheet">
+          <header class="resume-header">
+            <h1 id="previewName">YOUR NAME</h1>
+            <h2 id="previewRole">Frontend Developer</h2>
+            <div class="contact-row">
+              <span class="contact-item" data-icon="phone"><span id="previewPhone">+91 98765 43210</span></span>
+              <span class="contact-item" data-icon="email"><span id="previewEmail">yourmail@example.com</span></span>
+              <a class="contact-item" data-icon="link" id="previewLinkedin" href="https://www.linkedin.com/in/your-profile/" target="_blank" rel="noreferrer"><span>linkedin.com/in/your-profile/</span></a>
+              <span class="contact-item" data-icon="location"><span id="previewLocation">Pune, India</span></span>
+            </div>
+          </header>
+
+          <div class="resume-columns">
+            <section class="left-column">
+              <div class="resume-block">
+                <h3>Synopsis</h3>
+                <p id="previewSummary"></p>
+              </div>
+
+              <div class="resume-block">
+                <h3>Education</h3>
+                <div id="previewEducation"></div>
+              </div>
+
+              <div class="resume-block">
+                <h3>Projects</h3>
+                <div id="previewProjects"></div>
+              </div>
+            </section>
+
+            <section class="right-column">
+              <div class="resume-block">
+                <h3>Experience</h3>
+                <div id="previewExperience"></div>
+              </div>
+
+              <div class="resume-block">
+                <h3>Skills</h3>
+                <div id="previewSkills" class="skills-grid"></div>
+              </div>
+
+              <div class="resume-block">
+                <h3>Certifications</h3>
+                <div id="previewCertifications"></div>
+              </div>
+
+              <div class="resume-block">
+                <h3>Find Me Online</h3>
+                <div class="online-links" id="previewOnlineLinks"></div>
+              </div>
+
+              <div class="resume-block">
+                <h3>Languages</h3>
+                <div id="previewLanguages"></div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
