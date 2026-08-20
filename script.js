@@ -3,7 +3,7 @@ const resumeSheet = document.getElementById("resumeSheet");
 const pageStatus = document.getElementById("pageStatus");
 const downloadPdfButton = document.getElementById("downloadPdf");
 const downloadPngButton = document.getElementById("downloadPng");
-const MAX_PDF_SIZE_BYTES = 2 * 1024 * 1024;
+const MAX_PDF_SIZE_BYTES = 15 * 1024 * 1024;
 let resumeOverflowsPage = false;
 
 const fields = {
@@ -309,7 +309,8 @@ async function generateCanvas() {
 
   try {
     return await html2canvas(resumeSheet, {
-      scale: 2,
+      // Render at 4x the CSS resolution (roughly 300 DPI on A4) for crisp text.
+      scale: 4,
       useCORS: true,
       backgroundColor: "#ffffff",
       width: resumeSheet.clientWidth,
@@ -346,8 +347,8 @@ async function downloadPDF() {
   const pdf = new jsPDF("p", "mm", "a4");
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
-  // JPEG keeps the PDF visually sharp while substantially reducing its size.
-  const imageData = canvas.toDataURL("image/jpeg", 0.6);
+  // High-quality JPEG preserves crisp text while keeping the PDF under the limit.
+  const imageData = canvas.toDataURL("image/jpeg", 0.95);
 
   pdf.addImage(imageData, "JPEG", 0, 0, pageWidth, pageHeight, undefined, "FAST");
 
@@ -402,7 +403,7 @@ async function downloadPDF() {
   });
 
   if (pdf.output("blob").size > MAX_PDF_SIZE_BYTES) {
-    alert("The PDF is over the 2.0 MB download limit. Please reduce the resume content and try again.");
+    alert("The PDF is over the 15 MB download limit. Please reduce the resume content and try again.");
     return;
   }
 
